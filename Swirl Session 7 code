@@ -1,0 +1,25 @@
+install.packages("arm")
+library(arm)
+library(Matching)
+rep(1:4, 2)
+#creating a storage vector of 20 NA values
+store1<-rep(NA, 20)
+# Next, let's create a for loop that calculates the value i^2 + 2i + 4, where i is the index of the storage vector. We will save the result to the 
+#storage vector we just created. Copy and paste the following code but also try to understand what it's doing:
+for (i in 1:length(store1)){store1[i]  <- i^2 + 2*i + 4}
+
+#Recall the simulation we ran from a few sessions ago. A simulation is already ran when you started this lesson, generating 100 simulated
+#coefficients. The linear model is re78 ~ age, based on the lalonde dataset. Let's first take a look at the simulated coefficients, using
+
+lm1<- lm(re78~age, data = lalonde)
+lm1
+sim_results<- sim (lm1)
+sim_results@coef
+
+#Each row represents a simulation, with an intercept and coefficients for the variable age. To select specific values from the simulated, we can use
+#| the indexing, sim_results@coef[x, y], where x is the row and y is the column. For example, if we want the age coefficient for the 5th simulation, we
+#| would type sim_results@coef[5, 2].
+sim_results@coef[5, 2]
+
+#Write code that calculates the average of the simulated coefficients on age (the second column).
+mean(sim_results@coef[,2])
